@@ -13,7 +13,7 @@ exports.copyScoutingReportsToTableau = functions.database.ref('/event_scouting_r
     // grab actual scouting report
     var rpt = event.data.val();
 
-    return event.data.ref.root.child(`/team_keys/${teamId}/report_key`).once('value').then(snapshot => {
+    return admin.database().ref(`/team_keys/${teamId}/report_key`).once('value').then(snapshot => {
         var key = snapshot.val();
         return admin.database().ref(`/team_scouting_reports/${teamId}/${key}/${eventId}/${rptId}`).update(rpt);
     })
